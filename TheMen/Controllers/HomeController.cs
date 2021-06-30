@@ -14,7 +14,6 @@ namespace TheMen.Controllers
         public ActionResult Index()
         {
             HomeModel homeModelcontext = new HomeModel();
-
             homeModelcontext.ListCategory = context.Category.ToList();
             homeModelcontext.ListProduct = context.Product.ToList();
             return View(homeModelcontext);
@@ -33,14 +32,16 @@ namespace TheMen.Controllers
 
             return View();
         }
-        public ActionResult Detail()
+        public ActionResult Detail(int id)
         {
-            return View();
+            DetailModel DetailModelCotext = new DetailModel();
+            DetailModelCotext.product = context.Product.Where(n => n.ProductId == id).FirstOrDefault();
+            DetailModelCotext.ListProductCategory = context.Product.Where(n => n.CategoryId == id).ToList();
+            return View(DetailModelCotext);
         }
         public ActionResult Cart()
         {
             return View();
         }
-
     }
 }

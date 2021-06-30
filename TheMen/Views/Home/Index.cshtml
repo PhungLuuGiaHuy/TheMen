@@ -1,8 +1,7 @@
 ﻿@model TheMen.Models.HomeModel
-
 @{
-    ViewBag.Title = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutShare.cshtml";
 }
 
 <!doctype html>
@@ -10,37 +9,37 @@
 <head>
     <meta charset="utf-8">
     <title>Thời trang siêu đẹp siêu ngầu</title>
-    <link rel="stylesheet" type="text/css" href="~/css/style-trangchu.css"/>
+    <link rel="stylesheet" type="text/css" href="~/css/style-trangchu.css" />
 </head>
 
 <body>
     <div class="container">
         <div class="clear">
-            <img id="banner" src="./img/banner.png" height="650" />
+            <img id="banner" src="~/img/banner.png" height="650" />
             <div class="leftcolumn">
                 <div class="small-container">
                     <h2 class="line">Sản phẩm mới về</h2>
                     <div class="row">
-                        @foreach(var item in Model.ListProduct.Take(4))//lay item tu` HomeModel
+                        @foreach (var item in Model.ListProduct.Take(4))//lay item tu` HomeModel
                         {
                             <!--col 1-->
-                        <div class="col-4">
-                            <div class="box-wrapper">
-                                <div class="box-img" href="#"><img src="~/img/@item.Image"></div>
-                                <div class="box-text">
-                                    <div class="title-wrapper">
-                                        <div class="title">@item.ProductName</div>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <div class="price">@item.Price<span class="đ">đ</span></div>
-                                    </div>
-                                    <div class="add-to-cart-btn">
-                                        <div class="button"> <a href="~/GioHang" tabindex="-1" aria-disabled="true" class="btn"> <span class="btn-label">Mua ngay</span> </a> </div>
+                            <div class="col-4">
+                                <div class="box-wrapper">
+                                    <a class="box-img" href="@Url.Action("Detail", "Home", new {id = item.ProductId})"><img src="~/img/@item.Image"></a>
+                                    <div class="box-text">
+                                        <div class="title-wrapper">
+                                            <div class="title">@item.ProductName</div>
+                                        </div>
+                                        <div class="price-wrapper">
+                                            <div class="price">@item.Price<span class="đ">đ</span></div>
+                                        </div>
+                                        <div class="add-to-cart-btn">
+                                            <div class="button"> <a href="~/GioHang" tabindex="-1" aria-disabled="true" class="btn"> <span class="btn-label">Mua ngay</span> </a> </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--end col 1-->
+                            <!--end col 1-->
                         }
                     </div>
                 </div>
@@ -70,7 +69,7 @@
                             </div>
                             <!--end col 1-->
                         }
-                        </div>
+                    </div>
                 </div>
             </div>
             <!--end col 4-->
@@ -81,7 +80,9 @@
                     <ul>
                         @foreach (var item in Model.ListCategory)//lay item tu` HomeModel
                         {
-                        <li><a href="#">@item.CategoryName</a></li>
+                        <li>
+                             @Html.ActionLink(item.CategoryName, "ProductCategory", "Category", new {id = item.CategoryId}, null)
+                        </li>
                         }
                     </ul>
 
@@ -125,5 +126,7 @@
         }
     }
 </script>
+
+
 
 

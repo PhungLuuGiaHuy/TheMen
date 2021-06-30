@@ -27,7 +27,9 @@ namespace TheMen.Models
         public string Image { get; set; }
 
         public string Description { get; set; }
+        public string MadeIn { get; set; }
 
+        public string Brand { get; set; }
         public DateTime DateCapNhat { get; set; }
 
         public virtual Category Category { get; set; }

@@ -1,40 +1,44 @@
-﻿
+﻿@model TheMen.Models.DetailModel
+
 @{
     ViewBag.Title = "Detail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutShare.cshtml";
 }
 
 <!doctype html>
 <head>
     <meta charset="utf-8">
     <title>Thời trang siêu đẹp siêu ngầu</title>
-    <link rel="stylesheet" type="text/css" href="./css/styleViewProduct.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/style-detail.css" />
 </head>
 <body>
     <div class="container-main">
         <div class="box-main">
             <div class="main">
                 <div class="clear">
-                    <h2 class="name-item">@Model.ProductName</h2>
+                    <h2 class="name-item">@Model.product.ProductName</h2>
                     <div class="box-img-description">
                         <div class="col-img">
                             <div class="box-img">
-                                <img src="./img/ghim-cai-ao.png">
+                                <img src="~/img/@Model.product.Image">
                             </div>
                         </div>
                         <div class="col-description">
                             <div class="box-description">
-                                <p>Ghim cài áo làm từ Chất hợp kim cao cấp sáng bền đẹp không rỉ</p>
-                                <p>Ghim cài áo có Phong cách sang trọng, lịch lãm dễ phối đồ áo Vest, áo sơ mi hoặc áo măng-tô</p>
-                                <p>Dễ kết hợp trang phục, phụ kiện khác.</p>
-                                <p>Thích hợp làm quà tặng và sử dụng khi dạo phố , đi làm , dự tiệc, Event, Chụp ảnh, Đám cưới…</p>
+                                <p style="line-height: 30px">@Model.product.Description</p>
+                                <p><strong>Thương hiệu: </strong> @Model.product.Brand</p>
+                                <p><strong>Xuất xứ: </strong> @Model.product.MadeIn</p>
+                                <p><strong>Bảo hành: </strong> 6 tháng</p>
+                                <br />
+                                <br />
+                                <p style="font-size: 17px">Giao hàng chỉ 30k toàn hành tinh. Miễn phí giao hàng ngoài hành tinh. </p>
                             </div>
                             <div class="box-price">
                                 <div class="box-wrapper">
                                     <div class="box-text">
                                         <input type="number" class="soluong" value="1">
                                         <div class="price-wrapper">
-                                            <div class="price">500.000<span class="đ">đ</span></div>
+                                            <div class="price">@Model.product.Price<span class="đ">đ</span></div>
                                         </div>
                                         <div class="add-to-card-btn">
                                             <div class="button"> <b href="javascript:buynow()" class="btn"> <span class="btn-label">Mua ngay</span> </b> </div>
@@ -53,102 +57,31 @@
                     <div class="small-container">
                         <h2 class="line">Sản phẩm cùng danh mục</h2>
                         <div class="row">
-                            <!--col 1-->
-                            <div class="col-5">
-                                <div class="box-wrapper">
-                                    <div class="box-img"><img src="./img/giay1.jpg"></div>
-
-                                    <div class="box-text">
-                                        <div class="title-wrapper">
-                                            <div class="title">Giay nike 1</div>
-                                        </div>
-                                        <div class="price-wrapper">
-                                            <div class="price">500.000<span class="đ">đ</span></div>
-                                        </div>
-                                        <div class="add-to-card-btn">
-                                            <div class="button"> <b href="javascript:buynow()" class="btn"> <span class="btn-label">Mua ngay</span> </b> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col 1-->
-                            <!--col 2-->
-                            <div class="col-5">
-                                <div class="box-wrapper">
-                                    <div class="box-img"><img src="./img/giay1.jpg"></div>
-                                    <div class="box-text">
-                                        <div class="title-wrapper">
-                                            <div class="title">Giay nike 1</div>
-                                        </div>
-                                        <div class="price-wrapper">
-                                            <div class="price">500.000<span class="đ">đ</span></div>
-                                        </div>
-                                        <div class="add-to-card-btn">
-                                            <div class="button"> <b href="javascript:buynow()" class="btn"> <span class="btn-label">Mua ngay</span> </b> </div>
+                            @foreach (var item in Model.ListProductCategory.Take(4))//lay 5 item tu` HomeModel
+                            {
+                                <!--col 1-->
+                                <div class="col-5">
+                                    <div class="box-wrapper">
+                                        <a class="box-img" href="@Url.Action("Detail", "Home", new {id = item.ProductId})"><img src="~/img/@item.Image"></a>
+                                        <div class="box-text">
+                                            <div class="title-wrapper">
+                                                <div class="title">@item.ProductName</div>
+                                            </div>
+                                            <div class="price-wrapper">
+                                                <div class="price">@item.Price<span class="đ">đ</span></div>
+                                            </div>
+                                            <div class="add-to-card-btn">
+                                                <div class="button"> <b href="javascript:buynow()" class="btn"> <span class="btn-label">Mua ngay</span> </b> </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            }
+                                <!--end col 1-->
                             </div>
-                            <!--end col 2-->
-                            <!--col 3-->
-                            <div class="col-5">
-                                <div class="box-wrapper">
-                                    <div class="box-img"><img src="./img/giay1.jpg"></div>
-                                    <div class="box-text">
-                                        <div class="title-wrapper">
-                                            <div class="title">Giay nike 1</div>
-                                        </div>
-                                        <div class="price-wrapper">
-                                            <div class="price">500.000<span class="đ">đ</span></div>
-                                        </div>
-                                        <div class="add-to-card-btn">
-                                            <div class="button"> <b href="javascript:buynow()" class="btn"> <span class="btn-label">Mua ngay</span> </b> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col 3-->
-                            <!--col 4-->
-                            <div class="col-5">
-                                <div class="box-wrapper">
-                                    <div class="box-img"><img src="./img/giay1.jpg"></div>
-                                    <div class="box-text">
-                                        <div class="title-wrapper">
-                                            <div class="title">Giay nike 1</div>
-                                        </div>
-                                        <div class="price-wrapper">
-                                            <div class="price">500.000<span class="đ">đ</span></div>
-                                        </div>
-                                        <div class="add-to-card-btn">
-                                            <div class="button"> <b href="javascript:buynow()" class="btn"> <span class="btn-label">Mua ngay</span> </b> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col 4-->
-                            <!--col 5-->
-                            <div class="col-5">
-                                <div class="box-wrapper">
-                                    <div class="box-img"><img src="./img/giay1.jpg"></div>
-                                    <div class="box-text">
-                                        <div class="title-wrapper">
-                                            <div class="title">Giay nike 1</div>
-                                        </div>
-                                        <div class="price-wrapper">
-                                            <div class="price">500.000<span class="đ">đ</span></div>
-                                        </div>
-                                        <div class="add-to-card-btn">
-                                            <div class="button"> <b href="javascript:buynow()" class="btn"> <span class="btn-label">Mua ngay</span> </b> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-            <!--end col 5-->
-
         </div>
     </div>
 </body>
