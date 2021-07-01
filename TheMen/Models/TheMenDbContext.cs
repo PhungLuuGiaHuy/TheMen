@@ -63,5 +63,10 @@ namespace TheMen.Models
                 .Property(e => e.Price)
                 .HasPrecision(18, 0);
         }
+
+        internal void SubmitChanges()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
