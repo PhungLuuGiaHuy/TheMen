@@ -72,7 +72,7 @@ namespace TheMen.Controllers
                 cus.Email = email;
                 cus.Phone = phone;
                 cus.Ngaysinh = DateTime.Parse(ngaysinh);
-                context.Customer.InsertOnSubmit(cus);
+                //context.Customer.InsertOnSubmit(cus);
                 context.SubmitChanges();
                 return RedirectToAction("Login");
             }

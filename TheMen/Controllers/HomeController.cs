@@ -19,19 +19,6 @@ namespace TheMen.Controllers
             return View(homeModelcontext);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
         public ActionResult Detail(int id)
         {
             DetailModel DetailModelCotext = new DetailModel();
@@ -39,9 +26,13 @@ namespace TheMen.Controllers
             DetailModelCotext.ListProductCategory = context.Product.Where(n => n.CategoryId == id).ToList();
             return View(DetailModelCotext);
         }
-        public ActionResult Cart()
+
+        public ActionResult GioiThieu()
         {
-            return View();
+            HomeModel homeModelcontext = new HomeModel();
+            homeModelcontext.ListCategory = context.Category.ToList();
+            homeModelcontext.ListProduct = context.Product.ToList();
+            return View(homeModelcontext);
         }
     }
 }

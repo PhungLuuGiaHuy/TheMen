@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["_Layout"]</title>
+    <title>@ViewData["_LayoutShare"]</title>
     <link rel="stylesheet" type="text/css" href="~/css/style_layout.css" />
 </head>
 
@@ -21,7 +21,7 @@
 
                 </div>
                 <div class="cart">
-                    <img src="~/img/cart.png" width="35" height="35">
+                    <a  href="~/Cart" tabindex="-1" aria-disabled="true"><img src="~/img/cart.png" width="35" height="35"></a>
                 </div>
             </div>
         </div>
@@ -31,8 +31,8 @@
     <div class="menu-top">
         <nav>
             <ul>
-                <li><a href="#">TRANG CHỦ</a></li>
-                <li><a href="#">GIỚI THIỆU</a></li>
+                <li>@Html.ActionLink("TRANG CHỦ", "Index", "Home")</li>
+                <li>@Html.ActionLink("GIỚI THIỆU", "GioiThieu", "Home")</li>
                 <li><a href="#">BẢO HÀNH</a></li>
                 <li><a href="#">TƯ VẤN</a></li>
                 <li><a href="#">LIÊN HỆ</a></li>
