@@ -10,6 +10,7 @@
     <meta charset="utf-8">
     <title>Thời trang siêu đẹp siêu ngầu</title>
     <link rel="stylesheet" type="text/css" href="~/css/style-detail.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <div class="container-main">
@@ -36,12 +37,12 @@
                             <div class="box-price">
                                 <div class="box-wrapper">
                                     <div class="box-text">
-                                        <input type="number" class="soluong" value="1">
+                                        <input type="number" id="itemSoluong" class="soluong" value="1">
                                         <div class="price-wrapper">
                                             <div class="price">@Model.product.Price<span class="đ">đ</span></div>
                                         </div>
                                         <div class="add-to-card-btn">
-                                            <div class="button"> <b href="javascript:buynow()" class="btn"> <span class="btn-label">Mua ngay</span> </b> </div>
+                                            <div class="button"> <a id="addtocart" href="#" class="btn"> <span class="btn-label">Mua ngay</span> </a> </div>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +72,7 @@
                                                 <div class="price">@item.Price<span class="đ">đ</span></div>
                                             </div>
                                             <div class="add-to-card-btn">
-                                                <div class="button"> <b href="javascript:buynow()" class="btn"> <span class="btn-label">Mua ngay</span> </b> </div>
+                                                <div class="button"> <b id="addtocart" class="btn"> <span class="btn-label">Mua ngay</span> </b> </div>
                                             </div>
                                         </div>
                                     </div>
@@ -85,6 +86,33 @@
         </div>
     </div>
 </body>
+<script type="text/javascript">
+    $(function () {
+        $("#addtocart").click(function () {
+            var model = {};
+            //lấy id sản phẩm
+            model.ProductId = @Model.product.ProductId;
+            //lấy số lượng sản phẩm
+            model.Soluong = $("#itemSoluong").val();
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddToCart", "Cart")',
+                data: JSON.stringify(model),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+            alert("Thêm vào giỏ hàng thành công!")
+                    $('#CartCount').text(@Session["count"] + 1);
+        },
+            error: function () {
+            alert("Lỗi trong khi thêm vào giỏ hàng!");
+                }
+            });
+                return false;
+            });
+    });
+</script>
 
 
 
