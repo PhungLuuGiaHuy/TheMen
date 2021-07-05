@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using TheMen.Models;
@@ -11,19 +14,19 @@ namespace TheMen.Controllers
     {
         TheMenDbContext context = new TheMenDbContext();
         // GET: Customer
+
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Login()
-        {
-            return View();
-        }
+
 
         [HttpGet]
         public ActionResult Registration()
         {
+            TheMenDbContext context = new TheMenDbContext();
             return View();
         }
 
@@ -31,6 +34,7 @@ namespace TheMen.Controllers
         [HttpPost]
         public ActionResult Registration(FormCollection collection, Customer cus)
         {
+            TheMenDbContext context = new TheMenDbContext();
             //gán các giá trị người dùng nhập
             var name = collection["Name"];
             var account = collection["Account"];
@@ -38,7 +42,8 @@ namespace TheMen.Controllers
             var nhaplaipass = collection["NhapLaiPass"];
             var email = collection["Email"];
             var phone = collection["Phone"];
-            var ngaysinh = String.Format("0:MM/dd/yyyy", collection["Ngaysinh"]);
+            var ngaysinh = String.Format("{0:MM/dd/YYYY}", collection["Ngaysinh"]);
+
             if (String.IsNullOrEmpty(name))
             {
                 ViewData["Loi1"] = "Họ tên không được để trống nho";
@@ -73,10 +78,46 @@ namespace TheMen.Controllers
                 cus.Phone = phone;
                 cus.Ngaysinh = DateTime.Parse(ngaysinh);
                 //context.Customer.InsertOnSubmit(cus);
-                context.SubmitChanges();
+                context.Customer.Add(cus);
+                context.SaveChangesAsync();
+
                 return RedirectToAction("Login");
             }
             return this.Registration();
+        }
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(FormCollection collection)
+        {
+            var account = collection["Account"];
+            var pass = collection["Pass"];
+            if (String.IsNullOrEmpty(account))
+            {
+                ViewData["Loi1"] = "Phải nhập tên đăng nhập";
+            }
+            else if (String.IsNullOrEmpty(pass))
+            {
+                ViewData["Loi2"] = "Phải nhập mật khẩu";
+            }
+            else
+            {
+                //Gán giá trị cho đối tượng được tạo mới (kh)
+
+                Customer kh = context.Customer.SingleOrDefault(n => n.Account == account && n.Pass == pass);
+                if (kh != null)
+                {
+                    // ViewBag.Thongbao = "Chúc mừng đăng nhập thành công";
+                    Session["Account"] = kh;
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                    ViewBag.Thongbao = "Tên đăng nhập hoặc mật khẩu không đúng";
+            }
+            return View();
         }
     }
 }

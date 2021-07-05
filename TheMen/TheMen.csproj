@@ -155,6 +155,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\style-cart.css" />
+    <Content Include="css\style-login.css" />
     <Content Include="css\style-registration.css" />
     <Content Include="css\style-gioithieu.css" />
     <Content Include="css\style-trangchu.css" />
@@ -215,6 +216,7 @@
     <Content Include="Views\Category\ProductCategory.cshtml" />
     <Content Include="Views\Customer\Registration.cshtml" />
     <Content Include="Views\Home\GioiThieu.cshtml" />
+    <Content Include="Views\Customer\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
